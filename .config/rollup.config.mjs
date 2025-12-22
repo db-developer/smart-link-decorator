@@ -44,8 +44,10 @@ export default {
       functions: ['console.*'],
       debugger: true
     }),
-    // Minify and remove all remaining comments
+    // Remove all remaining comments
     isProd && terser({
+      compress: false, // obsidian demands not to obfuscate code
+      mangle: false,   // obsidian demands not to obfuscate code
       format: {
         comments: false
       }
