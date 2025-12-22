@@ -1,0 +1,3 @@
+{
+  "typescript.tsserver.project": ".config/tsconfig.json"
+}
