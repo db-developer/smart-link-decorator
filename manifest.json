@@ -1,9 +1,9 @@
 {
   "id": "smart-link-decorator",
   "name": "Smart Link Decorator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.6.0",
-  "description": "Fügt Obsidian-Links Datentypen wie 'person' oder 'location' anhand ihres Präfixes hinzu.",
+  "description": "Categorize internal links with aliases into types and style them.",
   "author": "Aven & Dirk",
   "authorUrl": "https://slashlib.org",
   "isDesktopOnly": false
