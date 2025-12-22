@@ -1,7 +1,7 @@
 {
   "name": "smart-link-decorator",
-  "version": "1.0.2",
-  "description": "Categorize Obsidian internal Links into types and style them.",
+  "version": "1.0.3",
+  "description": "Categorize internal links with aliases into types and style them.",
   "author": "Dirk Brenckmann <db.developer@gmx.de>",
   "license": "MIT",
   "main": "main.js",

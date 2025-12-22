@@ -49,7 +49,8 @@ export default {
       compress: false, // obsidian demands not to obfuscate code
       mangle: false,   // obsidian demands not to obfuscate code
       format: {
-        comments: false
+        comments: false,
+        beautify: true   // sorgt für ordentlich formatierten, mehrzeiligen Code
       }
     })
   ]
