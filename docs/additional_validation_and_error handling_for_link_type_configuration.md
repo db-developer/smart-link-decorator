@@ -1,4 +1,4 @@
-[ROADMAP](../ROADMAP.md) [CHANGELOG](../CHANGELOG.md) [LICENSE]../(LICENSE.md) [README](../README.md)
+[ROADMAP](../ROADMAP.md) [CHANGELOG](../CHANGELOG.md) [LICENSE](../LICENSE) [README](../README.md)
 
 ### Additional validation and error handling for link type configuration
 

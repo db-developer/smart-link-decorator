@@ -1,4 +1,4 @@
-[BOTTOM](#out-of-scope-things-that-will-not-be-touched-by-this-plugin) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE.md) [README](README.md)
+[BOTTOM](#out-of-scope-things-that-will-not-be-touched-by-this-plugin) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE) [README](README.md)
 
 # Roadmap
 
@@ -34,4 +34,4 @@ It is intended to provide transparency, not guarantees.
 - Graph-level manipulation or visualization.
 - Workflow automation beyond link decoration.
 
-[TOP](#roadmap) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE.md) [README](README.md)
+[TOP](#roadmap) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE) [README](README.md)

@@ -38,12 +38,12 @@ export default {
     nodeResolve({browser: true}),
     commonjs(),
     // Strip console and debugger statements first
-    //isProd && strip({
-    //   include: '**/*.(js|ts)',
-    //  exclude: 'src/lib/main.ts', // console.logging: "Plugin loaded" should be available!
-    //  functions: ['console.*'],
-    //  debugger: true
-    //}),
+    isProd && strip({
+      include: '**/*.(js|ts)',
+      exclude: 'src/lib/main.ts', // console.logging: "Plugin loaded" should be available!
+      functions: ['console.*'],
+      debugger: true
+    }),
     // Minify and remove all remaining comments
     isProd && terser({
       format: {

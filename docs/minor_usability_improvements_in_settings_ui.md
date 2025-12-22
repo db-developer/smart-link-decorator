@@ -1,4 +1,4 @@
-[ROADMAP](../ROADMAP.md) [CHANGELOG](../CHANGELOG.md) [LICENSE]../(LICENSE.md) [README](../README.md)
+[ROADMAP](../ROADMAP.md) [CHANGELOG](../CHANGELOG.md) [LICENSE](../LICENSE.md) [README](../README.md)
 
 ### Minor Usability Improvements in Settings UI
 

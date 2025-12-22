@@ -1,4 +1,4 @@
-[BOTTOM](#dynamic-link-type-based-suggestion-lists) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE.md) [ROADMAP](ROADMAP.md)
+[BOTTOM](#dynamic-link-type-based-suggestion-lists) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE) [ROADMAP](ROADMAP.md)
 
 # Smart Link Decorator
 
@@ -68,4 +68,4 @@ A note appears in the suggestion list of one or more link types only, if it is e
 
 Notes that do not meet these conditions are excluded from the suggestion list, keeping link creation focused and reducing noise in the editor.
 
-[TOP](#smart-link-decorator) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE.md) [ROADMAP](ROADMAP.md)
+[TOP](#smart-link-decorator) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE) [ROADMAP](ROADMAP.md)

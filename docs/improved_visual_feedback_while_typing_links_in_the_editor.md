@@ -1,4 +1,4 @@
-[ROADMAP](../ROADMAP.md) [CHANGELOG](../CHANGELOG.md) [LICENSE]../(LICENSE.md) [README](../README.md)
+[ROADMAP](../ROADMAP.md) [CHANGELOG](../CHANGELOG.md) [LICENSE](../LICENSE) [README](../README.md)
 
 ### Improved visual feedback while typing links in the editor
 
