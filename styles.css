@@ -1,0 +1,13 @@
+.smartlink-suggestion-alias {
+  font-style: italic;
+}
+
+.cm-hmd-internal-link.cm-link-alias.no-link-underline > a.cm-underline {
+  text-decoration: none;
+  color: inherit
+}
+
+.cm-hmd-internal-link.cm-link-alias.no-link-underline > a.cm-underline:hover {
+  text-decoration: none;
+  color: inherit
+}

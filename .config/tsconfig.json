@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "module": "ESNext",
+    "target": "ES2022",
+    "isolatedModules": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "types": [ 
+      "node",
+      "obsidian",
+      "vitest/globals"
+    ],
+    "lib": [
+      "DOM",
+      "ES2022"
+    ]
+  },
+  "include": [
+    "../src/lib/**/*.ts",
+    "../src/test/**/*.ts",
+    "../src/test/00.initial/**/*.ts",
+    "../src/test/01.utils/**/*.ts",
+    "../src/test/02.cm/**/*.ts",
+    "../src/test/*.*/**/*.ts"
+  ]
+}
