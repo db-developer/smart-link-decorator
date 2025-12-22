@@ -1,8 +1,8 @@
 {
   "name": "smart-link-decorator",
   "version": "0.1.0",
-  "description": "Erkennt Kontakt- und Orts-Links automatisch und markiert sie zur Stilanpassung.",
-  "author": "Dirk & Aven",
+  "description": "Categorize Obsidian internal Links into types and style them.",
+  "author": "Dirk Brenckmann <db.developer@gmx.de>",
   "license": "MIT",
   "main": "main.js",
   "scripts": {
