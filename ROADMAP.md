@@ -14,6 +14,7 @@ It is intended to provide transparency, not guarantees.
 
 ## Short-Term
 
+- Add language info to settings tab
 - [Minor usability improvements in the settings UI.](docs/minor_usability_improvements_in_settings_ui.md)
 - [Additional validation and error handling for link type configuration.](docs/additional_validation_and_error%20handling_for_link_type_configuration.md)
 - [Performance and stability improvements.](docs/performance_and_stability_improvements.md)
