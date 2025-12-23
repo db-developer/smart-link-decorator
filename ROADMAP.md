@@ -20,8 +20,9 @@ It is intended to provide transparency, not guarantees.
 
 ## Long-Term (Optional)
 
-- ❗ Add i18n support
+- ✔ ~~Add i18n support.~~ (done, v.1.1.0)
 - ❗ Add more unit tests
+  ✔ ~~Full set of i18n support tests added.~~ (done, v.1.1.0)
 - ❓ Eventually extended styling options per link type.
 - [Improved visual feedback while typing links in the editor.](docs/improved_visual_feedback_while_typing_links_in_the_editor.md)
 - ✔ ~~Optional presets for common link type patterns.~~ (done, v.0.1.0)

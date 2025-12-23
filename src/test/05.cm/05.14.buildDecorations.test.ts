@@ -1,6 +1,6 @@
 import { findWikiLinks } from "../../lib/cm/buildDecorations";
 
-describe( "Running 02.cm/05.12.buildDecorations.test.ts", () => {
+describe( "Running 05.cm/05.12.buildDecorations.test.ts", () => {
 
   // Mock für EditorView
   const mockView = {

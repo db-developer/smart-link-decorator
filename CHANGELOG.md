@@ -32,6 +32,20 @@ All notable changes to this project will be documented in this file.
 
 - No fixes yet
 
+## [1.1.0] - 2025-12-23
+
+### Added
+
+- i18n handling introduced
+- i18n full set of unittests added
+
+## [1.0.3] - 2025-12-23
+
+### Fixed
+
+- Fixed unmet requirements by  obsidianmd/obsidian-releases
+  See [pull request #9071](https://github.com/obsidianmd/obsidian-releases/pull/9071)
+
 ## [1.0.0] - 2025-12-23
 
 - Initial version

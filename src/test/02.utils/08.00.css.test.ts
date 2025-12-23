@@ -15,7 +15,7 @@ function makeMapping(partial: Partial<PrefixMapping>): PrefixMapping {
   };
 }
 
-describe( "Running 01.utils/08.00.css.test.ts", () => { 
+describe( "Running 02.utils/08.00.css.test.ts", () => { 
   /**
    * Testing function getDynamicCSS
    */

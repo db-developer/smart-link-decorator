@@ -14,7 +14,7 @@ Another link [[#Tag|🔖 Bar]] here.
 
 // Mock matchesInternalLink & parseWikiLink falls nötig
 // Hier nehmen wir an, sie funktionieren korrekt mit realem Text
-describe( "Running 02.cm/05.00.buildDecorations.test.ts", () => {
+describe( "Running 05.cm/05.00.buildDecorations.test.ts", () => {
   /**
    * Testing function buildInternalLinkDecorations
    */

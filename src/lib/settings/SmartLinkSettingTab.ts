@@ -5,12 +5,14 @@ import { PluginSettingTab,
          ButtonComponent,
          ColorComponent,
          TextComponent,
-         ToggleComponent     }  from "obsidian";
-import   SmartLinkDecorator     from "../main";
-import { PrefixMapping       }  from "../types/PrefixMapping";
-import { getSettingsTabCSS   }  from "../utils/css";
+         ToggleComponent     } from "obsidian";
+import   SmartLinkDecorator    from "../main";
+import { I18N_KEYS,
+         i18n                } from "../i18n" 
+import { PrefixMapping       } from "../types/PrefixMapping";
+import { getSettingsTabCSS   } from "../utils/css";
 import { hexToRgba, 
-         normalizeColorToHex }  from "../utils/color";
+         normalizeColorToHex } from "../utils/color";
 
 /**
  * Obsidian settings tab for the SmartLink system.
@@ -99,20 +101,21 @@ export class SmartLinkSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl("h2", { text: "Smart Link Decorator Settings" });
+    containerEl.createEl("h2", { text: i18n(I18N_KEYS.SETTINGS_HEADER)});
 
     // Scroll-Wrapper
     const gridWrapper = containerEl.createDiv("smartlink-grid-wrapper");
 
     /* === Sticky Header === */
     const headerRow  = gridWrapper.createDiv("smartlink-grid-header");
+
     const headerGrid = headerRow.createDiv("smartlink-grid");
-                       headerGrid.createDiv({ text: "Prefix" });
-                       headerGrid.createDiv({ text: "Emoji" });
-                       headerGrid.createDiv({ text: "Link-Type" });
-                       headerGrid.createDiv({ text: "Font Color" });
-                       headerGrid.createDiv({ text: "Background" });
-                       headerGrid.createDiv({ text: "Underline" });
+                       headerGrid.createDiv({ text: i18n(I18N_KEYS.SETTINGS_TABLE_HEADER_PREFIX)});
+                       headerGrid.createDiv({ text: i18n(I18N_KEYS.SETTINGS_TABLE_HEADER_EMOJI)});
+                       headerGrid.createDiv({ text: i18n(I18N_KEYS.SETTINGS_TABLE_HEADER_LINKTYPE)});
+                       headerGrid.createDiv({ text: i18n(I18N_KEYS.SETTINGS_TABLE_HEADER_TEXTCOLOR)});
+                       headerGrid.createDiv({ text: i18n(I18N_KEYS.SETTINGS_TABLE_HEADER_BACKGROUND)});
+                       headerGrid.createDiv({ text: i18n(I18N_KEYS.SETTINGS_TABLE_HEADER_UNDERLINE)});
                        headerGrid.createDiv({ text: " " }); // Delete
 
     this.plugin.settings.mappings.forEach((mapping: PrefixMapping, index: number) => {
@@ -126,11 +129,11 @@ export class SmartLinkSettingTab extends PluginSettingTab {
 
       // Präfix
       new TextComponent(grid)
-        .setPlaceholder("-")
+        .setPlaceholder(i18n(I18N_KEYS.SETTINGS_CONTROL_PLACEHOLDER_PREFIX))
         .setValue(mapping.prefix ?? "")
         .then(tc => {
           tc.inputEl.maxLength = 1;
-          setTooltip(tc.inputEl, "Präfix für den Link");
+          setTooltip(tc.inputEl, i18n(I18N_KEYS.SETTINGS_CONTROL_TOOLTIP_PREFIX));
           tc.inputEl.addEventListener("blur", async e => {
             mapping.prefix = (e.target as HTMLInputElement).value.slice(0, 1);
             await this.save();
@@ -139,11 +142,11 @@ export class SmartLinkSettingTab extends PluginSettingTab {
 
       // Emoji
       new TextComponent(grid)
-        .setPlaceholder("Emoji")
+        .setPlaceholder(i18n(I18N_KEYS.SETTINGS_CONTROL_PLACEHOLDER_EMOJI))
         .setValue(mapping.emoji ?? "")
         .then(tc => {
           tc.inputEl.maxLength = 2;
-          setTooltip(tc.inputEl, "Emoji für den Link");
+          setTooltip(tc.inputEl, i18n(I18N_KEYS.SETTINGS_CONTROL_TOOLTIP_EMOJI));
           tc.inputEl.addEventListener("blur", async e => {
             mapping.emoji = (e.target as HTMLInputElement).value.slice(0, 2);
             await this.save();
@@ -152,9 +155,10 @@ export class SmartLinkSettingTab extends PluginSettingTab {
 
       // Link-Type
       new TextComponent(grid)
-        .setPlaceholder("data-link-type")
+        .setPlaceholder(i18n(I18N_KEYS.SETTINGS_CONTROL_PLACEHOLDER_LINKTYPE))
         .setValue(mapping.linkType ?? "")
         .then(tc => {
+          setTooltip(tc.inputEl, i18n(I18N_KEYS.SETTINGS_CONTROL_TOOLTIP_LINKTYPE));
           tc.inputEl.addEventListener("blur", async e => {
             mapping.linkType = (e.target as HTMLInputElement).value;
             await this.save();
@@ -188,7 +192,7 @@ export class SmartLinkSettingTab extends PluginSettingTab {
       // Delete-Button
       new ButtonComponent(grid)
         .setIcon("trash")
-        .setTooltip("Mapping löschen")
+        .setTooltip(i18n(I18N_KEYS.SETTINGS_CONTROL_TOOLTIP_DELETE))
         .onClick(async () => {
           this.plugin.settings.mappings.splice(index, 1);
           await this.plugin.saveSettings();
@@ -199,7 +203,7 @@ export class SmartLinkSettingTab extends PluginSettingTab {
     // Neues Mapping
     new Setting(containerEl).addButton(btn =>
       btn
-        .setButtonText("Neues Mapping hinzufügen")
+        .setButtonText(i18n(I18N_KEYS.SETTINGS_CONTROL_TEXT_APPEND))
         .setCta()
         .onClick(async () => {
           this.plugin.settings.mappings.push({

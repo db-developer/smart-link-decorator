@@ -1,7 +1,7 @@
 import { RangeSetBuilder  } from "@codemirror/state";
 import { decorate         } from "../../lib/cm/buildDecorations";
 
-describe( "Running 02.cm/05.12.buildDecorations.test.ts", () => {
+describe( "Running 05.cm/05.12.buildDecorations.test.ts", () => {
 
   // Mock RangeSetBuilder and Decoration
   vi.mock("@codemirror/state", () => {

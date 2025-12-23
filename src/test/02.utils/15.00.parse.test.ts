@@ -1,6 +1,6 @@
 import { parseWikiLink } from "../../lib/utils/parse";
 
-describe( "Running 01.utils/15.00.parse.test.ts", () => { 
+describe( "Running 02.utils/15.00.parse.test.ts", () => { 
   /**
    * Testing function parseWikiLink
    */

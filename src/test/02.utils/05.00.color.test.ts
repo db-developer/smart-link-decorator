@@ -14,7 +14,7 @@ import { clampByte,
        } from "../../lib/utils/color";
 
 
-describe( "Running 01.utils/05.00.color.test.ts", () => {
+describe( "Running 02.utils/05.00.color.test.ts", () => {
   /**
    * Testing function clampByte
    */

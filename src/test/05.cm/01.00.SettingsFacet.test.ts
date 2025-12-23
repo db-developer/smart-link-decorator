@@ -10,7 +10,7 @@ function getFacetValue(state: EditorState): PrefixMapping[] {
   return state.facet(SLD_SettingsFacet);
 }
 
-describe( "Running 02.cm/01.00.SettingsFacet.test.ts", () => {
+describe( "Running 05.cm/01.00.SettingsFacet.test.ts", () => {
   /**
    * Testing SettingsFacet
    */
