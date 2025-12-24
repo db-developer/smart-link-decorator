@@ -102,67 +102,26 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
     cursor: EditorPosition,
     editor: Editor
   ): EditorSuggestTriggerInfo | null {
-    // Retrieve the full text of the current line.
-    // If the line cannot be resolved, no trigger is possible.
     const line = editor.getLine(cursor.line);
     if (!line) return null;
 
-    // Start scanning backwards from the character immediately
-    // before the cursor position.
-    let atPos = cursor.ch - 1;
+    const beforeCursor = line.slice(0, cursor.ch);
+    const match = beforeCursor.match(/(^|\s)(@+)([^\s]*)$/);
+    if (!match) return null;
 
-    // Walk backwards through the line until we either:
-    // - find a valid trigger start
-    // - hit a whitespace boundary
-    // - reach the beginning of the line
-    while (atPos >= 0) {
-      const char = line.charAt(atPos);
+    const triggerStart = match.index! + match[1].length;
+    const atSequence   = match[2];           // "@@@"
+    const queryPart    = match[3];           // "foo@bar"
 
-      // A whitespace indicates a token boundary.
-      // If we encounter it before finding a trigger character,
-      // the current cursor position is not part of a trigger.
-      if (char === ' ') {
-        return null;
-      }
+    // Prefix = first char AFTER the first '@'
+    const prefix = (atSequence + queryPart).charAt(1);
+    if (!this.isTrigger(prefix)) return null;
 
-      // Check for the trigger start character (e.g. '@').
-      if (char === SmartLinkSuggester.TRIGGER_START) {
-        // The trigger start must either be at the beginning of the line
-        // or be preceded by a whitespace character.
-        // This prevents triggering inside words or paths.
-        if (atPos > 0 && line.charAt(atPos - 1) !== ' ') {
-          return null;
-        }
-
-        // Determine the character immediately following the trigger start.
-        // This character defines whether the trigger is semantically valid.
-        const charAfterAt = line.charAt(atPos + 1);
-        if (!charAfterAt) return null;
-
-        // Validate the trigger mode using the configured prefix mappings.
-        // If no mapping exists, the trigger is ignored.
-        if (!this.isTrigger(charAfterAt)) {
-          return null;
-        }
-
-        // A valid trigger has been detected.
-        // Define the range that Obsidian should treat as the active query.
-        return {
-          start: {
-            line: cursor.line,
-            ch: atPos
-          },
-          end: cursor,
-          query: this.buildQuery(line, atPos, cursor.ch)
-        }; // muss sein, damit die property 'query' fehlen kann *sigh*
-      }
-
-      // Continue scanning backwards.
-      atPos--;
-    }
-
-    // Reached the beginning of the line without finding a valid trigger.
-    return null;
+    return {
+      start: { line: cursor.line, ch: triggerStart },
+      end: cursor,
+      query: atSequence + queryPart
+    };
   }
 
   /**
@@ -261,9 +220,9 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
    *          otherwise `false`.
    */
   private fileStartsWith(file: TFile, str: string): boolean {
-    if (!str || str.length < 2) {
-      return false;
-    }
+    if (!str) return false;
+    if (str.length < 2) return true;
+
 
     // Remove the prefix character (first character of the query)
     const query = str.slice(1);
@@ -351,6 +310,60 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
   }
 
   /**
+   * Sorts smart link suggestions by relevance against a normalized query.
+   *
+   * The query is expected to start with a valid prefix character (as defined
+   * in the plugin settings). The first character is stripped before matching.
+   * This function assumes that this invariant is already enforced by the caller.
+   *
+   * Scoring rules:
+   * - Suggestions whose displayName starts with the query score highest.
+   * - Suggestions whose displayName merely includes the query score lower.
+   * - Longer display names are penalized proportionally to their excess length.
+   * - Ties are resolved alphabetically by displayName.
+   *
+   * Note: This method sorts the provided suggestions array in place.
+   *
+   * @param query
+   *   The raw user query, including a leading prefix character.
+   *   The first character must correspond to one of the configured prefixes.
+   *
+   * @param suggestions
+   *   The list of smart link suggestions to be sorted.
+   *
+   * @returns
+   *   The sorted suggestions array (same instance as provided).
+   */
+  private sortSuggestions(query: string, suggestions: SmartLinkSuggestion[]) {
+    query = query.slice(1).toLowerCase();
+
+    const score = (s: SmartLinkSuggestion) => {
+      const name = s.displayName.toLowerCase();
+      let baseScore = 0;
+
+      if (name.startsWith(query)) baseScore = 2;
+      else if (name.includes(query)) baseScore = 1;
+
+      // Penalize longer display names: subtract the extra length
+      const lengthPenalty = name.length - query.length;
+
+      return baseScore - lengthPenalty;
+    };
+
+    return  suggestions.sort((a, b) => {
+
+      const scoreA = score(a);
+      const scoreB = score(b);
+
+      // Descending by score
+      if (scoreB !== scoreA) return scoreB - scoreA;
+
+      // Alphabetical tie-breaker
+      return a.displayName.localeCompare(b.displayName);
+    });    
+  }
+
+  /**
    * Builds the list of smart link suggestions based on the current editor context.
    *
    * This method is invoked by Obsidian after a trigger has been detected via
@@ -386,6 +399,10 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
 
     const suggestions: SmartLinkSuggestion[] = [];
 
+    // Remove the trigger character '@' (first character of the query)
+    const query = context.query.startsWith(SmartLinkSuggester.TRIGGER_START) ? 
+                    context.query.slice(1) : context.query;
+
     for (const file of this.app.vault.getMarkdownFiles()) {
       const cache = this.app.metadataCache.getFileCache(file);
       if (!cache) continue;
@@ -396,8 +413,8 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
       // Skip files that do not satisfy tag/flag constraints
       if (!hasTag && !hasFlag) continue;
 
-      const fileMatch  = this.fileStartsWith(file, context.query);
-      const aliasMatch = this.aliasContains(cache, context.query);
+      const fileMatch  = this.fileStartsWith(file, query);
+      const aliasMatch = this.aliasContains(cache, query);
 
       if (fileMatch) {
         suggestions.push({
@@ -409,7 +426,7 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
       }
 
       if (aliasMatch) {
-        const alias = this.findMatchingAlias(cache, context.query);
+        const alias = this.findMatchingAlias(cache, query);
         if (!alias) continue;
 
         suggestions.push({
@@ -420,33 +437,7 @@ export class SmartLinkSuggester extends EditorSuggest<SmartLinkSuggestion> {
       }
     }
 
-    suggestions.sort((a, b) => {
-      const query = context.query.slice(1).toLowerCase();
-
-      const score = (s: SmartLinkSuggestion) => {
-        const name = s.displayName.toLowerCase();
-        let baseScore = 0;
-
-        if (name.startsWith(query)) baseScore = 2;
-        else if (name.includes(query)) baseScore = 1;
-
-        // Penalize longer display names: subtract the extra length
-        const lengthPenalty = name.length - query.length;
-
-        return baseScore - lengthPenalty;
-      };
-
-      const scoreA = score(a);
-      const scoreB = score(b);
-
-      // Descending by score
-      if (scoreB !== scoreA) return scoreB - scoreA;
-
-      // Alphabetical tie-breaker
-      return a.displayName.localeCompare(b.displayName);
-    });    
-
-    return suggestions;
+    return this.sortSuggestions(query, suggestions);
   }
 
   /**
