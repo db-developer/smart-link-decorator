@@ -18,19 +18,19 @@ All notable changes to this project will be documented in this file.
 
 - No fixes yet
 
-## [1.0.1]
+## [1.1.1]
 
 ### Added
 
-- No additions yet
+- Added suggester image to README.md
 
 ### Changed
 
-- No changes yet
+- Moved plugin class source file to folder plugin
 
 ### Fixed
 
-- No fixes yet
+- Fixed suggester trigger and suggested file filtering.
 
 ## [1.1.0] - 2025-12-23
 
