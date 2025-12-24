@@ -68,4 +68,6 @@ A note appears in the suggestion list of one or more link types only, if it is e
 
 Notes that do not meet these conditions are excluded from the suggestion list, keeping link creation focused and reducing noise in the editor.
 
+<img src="docs/images/suggester.png" width="400">
+
 [TOP](#smart-link-decorator) [CHANGELOG](CHANGELOG.md) [LICENSE](LICENSE) [ROADMAP](ROADMAP.md)
