@@ -1,6 +1,6 @@
 {
   "name": "smart-link-decorator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Categorize internal links with aliases into types and style them.",
   "author": "Dirk Brenckmann <db.developer@gmx.de>",
   "license": "MIT",
